@@ -54,6 +54,12 @@ export default class World extends Component {
     this.loopID = null;
     this.lastTime = null;
 
+    // Bug fix for known issue on matter-js
+    // https://github.com/liabru/matter-js/issues/468
+    Matter.Common.isElement = function(obj) {
+      return typeof HTMLElement !== 'undefined' && obj instanceof HTMLElement;
+    };
+    
     const world = Matter.World.create({gravity: props.gravity});
 
     this.engine = Engine.create({
